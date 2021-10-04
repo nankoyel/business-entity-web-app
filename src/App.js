@@ -1,12 +1,10 @@
 import './App.css';
-import EntityForm from './EntityForm';
+import EntitySearch from './EntitySearch';
 
 function App() {
   return (
-    <div className="App">
-     
-        <EntityForm/>
-
+    <div className="App">  
+        <EntitySearch/>
     </div>
   );
 }

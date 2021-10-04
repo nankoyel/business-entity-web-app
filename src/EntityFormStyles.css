@@ -1,0 +1,25 @@
+body{
+    background-color: cadetblue;
+}
+.ant-form {
+    
+    font-size: 18px;
+    letter-spacing: 1.2px;
+    color:black;
+}
+
+.ant-row{
+    margin-left: 10%;
+    margin-right: 20%;
+}
+
+.ant-row.ant-form-item{
+    display: flex;
+    padding: 20px;
+}
+
+.ant-col {
+    width: 100%;
+    float: left;
+    padding: 20px;
+}  

@@ -1,68 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Row, Col, DatePicker, Space } from 'antd';
 import { metaData } from './metaData';
+import useForm from "./useForm";
 
-const EntityForm = () => {
-  const [form] = Form.useForm();
-  let [formFields, setFormFields]= useState([]);
-  let [entityName, setEntityName]= useState(null);
-  let [entityLabel, setEntityLabel]= useState(null);
+
+
+const EntityForm = (data) => {
+    const [fieldValues, setFieldValues] = useState(data);
+
+
+    const register = () => {
+        
+    }
+    
+    const [values, handleChange, handleSubmit] = useForm(register);
+  
 
  const {Search} = Input;
-    
-    useEffect(() => {
-      console.log("metadata => ", metaData)
-      setEntityName(metaData?.name)
-       setEntityLabel(metaData?.label)
-       setFormFields(metaData?.field);
-    });
 
-
-    const dateChangeHandle = (date, dateString) => {
-
-    }
-
-    const onSearchHandle = (value) => {
-
-    }
-  
+  console.log("FormValues ==> ",data.data.label)
   return (
     <>
       <Form
-        form={form}
+        layout="inline"
+        onFinish={handleSubmit}
       >
-        <Row>
-            <Form.Item label={metaData.label} >
-                <Input name={metaData.name} />
-            </Form.Item>
-        </Row>
-        <Row>
-            <Col>
-                <Form.Item>
-                    <Button type="primary">Submit</Button>
-                </Form.Item>
-            </Col>
-        </Row>
        {metaData.field.map((field, key) => ( 
-           field.system && 
+           field.system === false || field.system === undefined && 
             
-           <Row>
-           <Form.Item index={key} label={field.label} >
+           <Row key={key}>
+           <Form.Item label={field.label} >
                {
                 field.dataType === "String" || 
                 field.dataType === "Decimal" || 
                 field.dataType === "Integer"? 
-                 <Input name={field.name} /> : null
+                 <Input style={{ width: 400 }} maxLength={field.length} name={field.name} defaultValue={data.data[field.name]}/> : null
                  }
                 {
                      field.dataType === "Date"? 
                     <Space>
-                    <DatePicker name={field.name} onChange={dateChangeHandle} />  </Space>: null 
+                    <DatePicker name={field.name} onChange={handleChange} />  </Space>: null 
                    
                 }
                 {
                     field.dataType === "lookup"? 
-                    <Search name={field.name} onSearch={onSearchHandle} style={{ width: 200 }} /> : null
+                    <Search name={field.name} style={{ width: 400 }} /> : null
                 }
                
            </Form.Item>
@@ -74,7 +56,7 @@ const EntityForm = () => {
         <Row>
             <Col>
                 <Form.Item>
-                    <Button type="primary">Submit</Button>
+                    <Button type="primary" width="120px">Submit</Button>
                 </Form.Item>
             </Col>
         </Row>

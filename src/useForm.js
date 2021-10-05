@@ -8,10 +8,12 @@ const useForm = (submitCallback) => {
     }
 
     const handleChange = e => {
-        console.log("handke change")
-        //e.persist();
+        console.log("handle change")
+        e.persist();
         setState((state) => ({...state, [e.target.name]:e.target.value}))
     }
+
+    console.log("printing state ",state)
 
 
     return [state, handleChange,handleSubmit];
